@@ -16,7 +16,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 	std::string imgUrl;
 	{
-		Libcurl lib;
+		peace::net::Libcurl lib;
 		std::vector<char> res;
 		lib.HttpGet("http://cn.bing.com/", res);
 		res.push_back('\0');
@@ -60,13 +60,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		{
 			if (!std::experimental::filesystem::exists(fileName))
 			{
-				Libcurl lib;
+				peace::net::Libcurl lib;
 				lib.HttpGet(imgUrl.c_str(), fileName.c_str());
 			}
 
 			if (std::experimental::filesystem::exists(fileName))
 			{
-				Desktop::SetDesktopWallpager(fileName.c_str());
+				peace::win::Desktop::SetDesktopWallpager(fileName.c_str());
 			}
 		}
 	}

@@ -1,12 +1,17 @@
 #pragma once
-
-class Desktop
+namespace peace
 {
-private:
-	Desktop();
-	~Desktop();
+	namespace win
+	{
+		class Desktop
+		{
+		private:
+			Desktop();
+			~Desktop();
 
-public:
-	static bool SetDesktopWallpager(const wchar_t * img);
-	static bool SetDesktopWallpager(const char * img);
-};
+		public:
+			static bool SetDesktopWallpager(const wchar_t * img);
+			static bool SetDesktopWallpager(const char * img);
+		};
+	}
+}
