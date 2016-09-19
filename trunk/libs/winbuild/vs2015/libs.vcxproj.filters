@@ -15,12 +15,30 @@
     <ClCompile Include="..\..\win\Desktop.cpp">
       <Filter>win</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\win\Service.cpp">
+      <Filter>win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\win\Thunk.cpp">
+      <Filter>win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\win\ServiceHelper.cpp">
+      <Filter>win</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\net\Libcurl.h">
       <Filter>net</Filter>
     </ClInclude>
     <ClInclude Include="..\..\win\Desktop.h">
+      <Filter>win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\win\Service.h">
+      <Filter>win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\win\Thunk.h">
+      <Filter>win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\win\ServiceHelper.h">
       <Filter>win</Filter>
     </ClInclude>
   </ItemGroup>
