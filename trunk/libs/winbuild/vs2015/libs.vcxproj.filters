@@ -7,6 +7,9 @@
     <Filter Include="win">
       <UniqueIdentifier>{4daad585-273a-4fcc-a0ea-2a7762fe2ce6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{ba559568-6c6e-4e1c-a229-a293bf156e68}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\net\Libcurl.cpp">
@@ -18,10 +21,10 @@
     <ClCompile Include="..\..\win\Service.cpp">
       <Filter>win</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\win\Thunk.cpp">
+    <ClCompile Include="..\..\win\ServiceHelper.cpp">
       <Filter>win</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\win\ServiceHelper.cpp">
+    <ClCompile Include="..\..\win\CallThunk.cpp">
       <Filter>win</Filter>
     </ClCompile>
   </ItemGroup>
@@ -35,11 +38,14 @@
     <ClInclude Include="..\..\win\Service.h">
       <Filter>win</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\win\Thunk.h">
-      <Filter>win</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\win\ServiceHelper.h">
       <Filter>win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\win\CallThunk.h">
+      <Filter>win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utils\TypeConvert.h">
+      <Filter>utils</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,6 +1,10 @@
 #pragma once
 #include <Windows.h>
 #include <functional>
+namespace ATL
+{
+	class _stdcallthunk;
+}
 
 namespace peace {
 	namespace win {
@@ -49,6 +53,9 @@ namespace peace {
 			void WINAPI ServiceStrl(DWORD  dwOpcode);
 		private:
 			ServiceData serviceData;
+			ATL::_stdcallthunk* callServiceMain = nullptr;
+			ATL::_stdcallthunk* callServiceStrl = nullptr;
+
 		};
 	}
 }

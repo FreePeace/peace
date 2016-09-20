@@ -1,13 +1,36 @@
 #include "Service.h"
+#include <atlstdthunk.h>
+#include "..\utils\TypeConvert.h"
 
 namespace peace {
 	namespace win {
 		Service::Service()
 		{
+			callServiceMain = new ATL::_stdcallthunk();
+			callServiceMain->Init(peace::utils::brute_cast<DWORD_PTR>(&Service::ServiceMain), this);
+
+			callServiceStrl = new ATL::_stdcallthunk();
+			callServiceStrl->Init(peace::utils::brute_cast<DWORD_PTR>(&Service::ServiceStrl), this);
 		}
 
 		Service::~Service()
 		{
+			if (nullptr != serviceData.stopFun && (SERVICE_RUNNING == serviceData.status.dwCurrentState))
+			{
+				serviceData.stopFun();
+			}
+
+			if (nullptr != callServiceMain)
+			{
+				delete callServiceMain;
+				callServiceMain = nullptr;
+			}
+
+			if (nullptr != callServiceStrl)
+			{
+				delete callServiceStrl;
+				callServiceStrl = nullptr;
+			}
 		}
 
 
@@ -15,16 +38,15 @@ namespace peace {
 		{
 			this->serviceData.threadID = ::GetCurrentThreadId();
 			this->serviceData.runFun = fun;
-			//SERVICE_TABLE_ENTRY st[] = {
-			//	{ (LPWSTR)this->serviceData.serviceName.c_str() , ServiceHelper::ServiceMain },
-			//	{ nullptr,nullptr }
-			//};
+			SERVICE_TABLE_ENTRY st[] = {
+				{ (LPWSTR)this->serviceData.serviceName.c_str() , (LPSERVICE_MAIN_FUNCTION)callServiceMain->GetCodeAddress() },
+				{ nullptr,nullptr }
+			};
 
-			//if (!::StartServiceCtrlDispatcher(st))
-			//{
-			//	//error;
-			//}
-
+			if (!::StartServiceCtrlDispatcher(st))
+			{
+				//error;
+			}
 		}
 
 		void Service::Run(const ServiceData & data)
@@ -66,7 +88,7 @@ namespace peace {
 			status.dwControlsAccepted = SERVICE_ACCEPT_STOP;
 
 			//×¢²á·þÎñ¿ØÖÆ  
-			//serviceStatus = RegisterServiceCtrlHandler(serviceData.serviceName.c_str(), ServiceHelper::ServiceStrl);
+			serviceStatus = RegisterServiceCtrlHandler(serviceData.serviceName.c_str(), (LPHANDLER_FUNCTION)callServiceStrl->GetCodeAddress());
 			if (serviceData.serviceStatus == nullptr)
 			{
 				//LogEvent(_T("Handler not installed"));
