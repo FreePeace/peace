@@ -4,6 +4,13 @@
 #include "stdafx.h"
 #include "HideByTop.h"
 
+#include <cstdio>
+#include <iostream>
+
+#include <io.h>  
+#include <fcntl.h>  
+#include <iostream>  
+
 #define MAX_LOADSTRING 100
 
 // Global Variables:
@@ -25,6 +32,26 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     UNREFERENCED_PARAMETER(lpCmdLine);
 
     // TODO: Place code here.
+	{
+		AllocConsole();                      // 为一个进程定位一个console ，如果是win32 程序的话这里就派上用场了 
+											 //Retrieves a handle to the specified standard device (standard input, standard output, or standard error). 
+		HANDLE hin = ::GetStdHandle(STD_INPUT_HANDLE);
+		HANDLE hout = ::GetStdHandle(STD_OUTPUT_HANDLE);
+		//Associates a C run-time file descriptor with an existing operating-system file handle. 
+		int hcin = _open_osfhandle((intptr_t)hin, _O_TEXT);                 // 此时hcin 就成了一个file descriptor 了 
+																			//		When a program opens a file, the operating system returns a corresponding file descriptor that the program refers to 
+																			//     in order to process the file. A file descriptor is a low positive integer. The first three file descriptors (0,1, and 2,) 
+																			//     are associated with the standard input (stdin), the standard output (stdout), and the standard error (stderr), respectively. 
+																			//     Thus, the function scanf() uses stdin and the function printf() uses stdout. You can override the default setting and 
+																			//     re-direct the process's I/O to different files by using different file descriptors: 
+																			//     #include <cstdio> 
+																			//     fprintf(stdout, "writing to stdout"); //write to stdout instead of a physical file 
+		FILE * fpin = _fdopen(hcin, "r");
+		*stdin = *fpin;                                                  //stdin 就指向了文件指针 
+		int hcout = _open_osfhandle((intptr_t)hout, _O_TEXT);
+		FILE * fpout = _fdopen(hcout, "wt");
+		*stdout = *fpout;
+	}
 
     // Initialize global strings
     LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
@@ -105,7 +132,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    }
    {
 	  auto style = ::GetWindowLong(hWnd, GWL_STYLE);
-	  style &= (~WS_CAPTION);
+	  style &= (~(WS_CAPTION|WS_BORDER| WS_THICKFRAME));
 	  ::SetWindowLong(hWnd, GWL_STYLE, style);
    }
 
@@ -116,7 +143,8 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 	   ::GetWindowRect(hWnd, &rect);
 	   ::InvalidateRect(hWnd, &rect, true);
    }
-   ::SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+
+   ::SetWindowPos(hWnd, HWND_TOPMOST, 0, GetSystemMetrics(SM_CYSCREEN) - 150, GetSystemMetrics(SM_CXSCREEN), 70, SWP_NOACTIVATE);
 
    return TRUE;
 }
@@ -159,6 +187,18 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             EndPaint(hWnd, &ps);
         }
         break;
+	case WM_ERASEBKGND:
+	{
+		RECT rc;
+		GetClientRect(hWnd, &rc);
+		auto brush = ::CreateSolidBrush(RGB(0x0, 0x0, 0x0));
+		auto hdc = ::GetWindowDC(hWnd);
+		::FillRect(hdc, &rc, brush);
+		DeleteObject(brush);
+		::ReleaseDC(hWnd, hdc);
+		return true;
+		break;
+	}
     case WM_DESTROY:
         PostQuitMessage(0);
         break;
@@ -168,6 +208,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		SendMessage(hWnd, WM_SYSCOMMAND, SC_MOVE | HTCAPTION, 0);
 		//第二种方法
 		//SendMessage(hWnd, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+		break;
+	case WM_KEYDOWN:
+		std::cout << "WM_KEYDOWN\r\n";
+		break;
+	case WM_CHAR:
+		std::cout << "WM_CHAR\r\n";
+		break;
+	case WM_KEYUP:
+		std::cout << "WM_KEYUP\r\n";
 		break;
     default:
         return DefWindowProc(hWnd, message, wParam, lParam);

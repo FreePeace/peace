@@ -15,6 +15,8 @@ namespace peace {
 			static bool Install(const wchar_t * name);
 
 			static bool UnInstall(const wchar_t * name);
+
+			static int RunMsgLoop();
 		};
 	}
 }
