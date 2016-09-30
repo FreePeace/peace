@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\map\GpsTransform.cpp" />
     <ClCompile Include="..\..\net\Libcurl.cpp" />
     <ClCompile Include="..\..\win\Desktop.cpp" />
     <ClCompile Include="..\..\win\Service.cpp" />
@@ -26,12 +27,14 @@
     <ClCompile Include="..\..\win\CallThunk.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\map\GpsTransform.h" />
     <ClInclude Include="..\..\net\Libcurl.h" />
     <ClInclude Include="..\..\utils\TypeConvert.h" />
     <ClInclude Include="..\..\win\Desktop.h" />
     <ClInclude Include="..\..\win\Service.h" />
     <ClInclude Include="..\..\win\ServiceHelper.h" />
     <ClInclude Include="..\..\win\CallThunk.h" />
+    <ClInclude Include="Console.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{AB6259DD-21FC-432A-B4A7-34B38A43EC3A}</ProjectGuid>

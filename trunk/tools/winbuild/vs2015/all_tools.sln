@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DesktopWallpagerFromBing", "DesktopWallpaper.vcxproj", "{AB6259DD-21FC-432A-B4A7-34B38A43EC3A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HideByTop", "HideByTop\HideByTop.vcxproj", "{38715784-B9C7-48F7-ACE1-2B770D71500F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HideByTop", "HideByTop.vcxproj", "{38715784-B9C7-48F7-ACE1-2B770D71500F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
