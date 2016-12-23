@@ -3,6 +3,7 @@
 #include <regex>
 #include <fstream>
 #include <experimental\filesystem>
+#include <Windows.h>
 #include "net\Libcurl.h"
 #include "win\Desktop.h"
 
@@ -21,7 +22,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		lib.HttpGet("http://cn.bing.com/", res);
 		res.push_back('\0');
 
-		std::regex regItem(";g_img=\\{url:\\s*\"(http://[^\"]+)\"[^\\}]+id:'bgDiv'");
+		std::regex regItem(";g_img=\\{url:\\s*\"((http:/|https:/)?/[^\"]+)\"[^\\}]+id:'bgDiv'");
 		std::cmatch m;
 		char * start = &res[0];
 #ifdef _DEBUG
@@ -35,6 +36,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		if(std::regex_search(start, m, regItem))
 		{
 			imgUrl = m.str(1);
+			if (!imgUrl.empty() && imgUrl[0] == '/')
+			{
+				imgUrl.insert(0, "http://cn.bing.com");
+			}
 		}
 	}
 

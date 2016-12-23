@@ -1,12 +1,10 @@
 #pragma once
 #include <vector>
 #include <functional>
-#include <curl.h>
+#include <curl\curl.h>
 namespace peace
 {
 	namespace net {
-
-
 		class Libcurl
 		{
 		public:
@@ -20,9 +18,9 @@ namespace peace
 			bool HttpGet(const char * url, char * responseBuffer, size_t bufferSize);
 			bool HttpGet(const wchar_t * url, std::vector<char>& responseBuffer);
 			bool HttpGet(const char * url, std::vector<char>& responseBuffer);
-			//responseFun, ·µ»ØÖµÎª´¦ÀíµÄ£¬Èç¹û³ö´í·µ»Ø-1¡£ÆäËüµÄ²ÎÊı¼û libcurl µÄ CURLOPT_WRITEFUNCTION
+			//responseFun, è¿”å›å€¼ä¸ºå¤„ç†çš„ï¼Œå¦‚æœå‡ºé”™è¿”å›-1ã€‚å…¶å®ƒçš„å‚æ•°è§ libcurl çš„ CURLOPT_WRITEFUNCTION
 			bool HttpGet(const wchar_t * url, std::function<size_t(char *ptr, size_t size, size_t nmemb)>& responseFun);
-			//responseFun, ·µ»ØÖµÎª´¦ÀíµÄ£¬Èç¹û³ö´í·µ»Ø-1¡£ÆäËüµÄ²ÎÊı¼û libcurl µÄ CURLOPT_WRITEFUNCTION
+			//responseFun, è¿”å›å€¼ä¸ºå¤„ç†çš„ï¼Œå¦‚æœå‡ºé”™è¿”å›-1ã€‚å…¶å®ƒçš„å‚æ•°è§ libcurl çš„ CURLOPT_WRITEFUNCTION
 			bool HttpGet(const char * url, std::function<size_t(char *ptr, size_t size, size_t nmemb)>& responseFun);
 
 			bool HttpPost(const wchar_t * url, const wchar_t * responseFile, const wchar_t * requestFile);
@@ -32,16 +30,18 @@ namespace peace
 			bool HttpPost(const wchar_t * url, std::vector<char>& responseBuffer, std::vector<char>& requestBuffer);
 			bool HttpPost(const char * url, std::vector<char>& responseBuffer, std::vector<char>& requestBuffer);
 
-			//responseFun, ·µ»ØÖµÎª´¦ÀíµÄ£¬Èç¹û³ö´í·µ»Ø-1¡£ÆäËüµÄ²ÎÊı¼û libcurl µÄ CURLOPT_WRITEFUNCTION
-			//requestFun µÄ²ÎÊı²Î¼û libcurl CURLOPT_READFUNCTION
+			//responseFun, è¿”å›å€¼ä¸ºå¤„ç†çš„ï¼Œå¦‚æœå‡ºé”™è¿”å›-1ã€‚å…¶å®ƒçš„å‚æ•°è§ libcurl çš„ CURLOPT_WRITEFUNCTION
+			//requestFun çš„å‚æ•°å‚è§ libcurl CURLOPT_READFUNCTION
 			bool HttpPost(const wchar_t * url, std::function<size_t(char *ptr, size_t size, size_t nmemb)>& responseFun, std::function<size_t(char *ptr, size_t size, size_t nmemb)>& requestFun);
-			//responseFun, ·µ»ØÖµÎª´¦ÀíµÄ£¬Èç¹û³ö´í·µ»Ø-1¡£ÆäËüµÄ²ÎÊı¼û libcurl µÄ CURLOPT_WRITEFUNCTION
-			//requestFun µÄ²ÎÊı²Î¼û libcurl CURLOPT_READFUNCTION
+			//responseFun, è¿”å›å€¼ä¸ºå¤„ç†çš„ï¼Œå¦‚æœå‡ºé”™è¿”å›-1ã€‚å…¶å®ƒçš„å‚æ•°è§ libcurl çš„ CURLOPT_WRITEFUNCTION
+			//requestFun çš„å‚æ•°å‚è§ libcurl CURLOPT_READFUNCTION
 			bool HttpPost(const char * url, std::function<size_t(char *ptr, size_t size, size_t nmemb)>& responseFun, std::function<size_t(char *ptr, size_t size, size_t nmemb)>& requestFun);
 
 		private:
 			static size_t WriteCallback(char *ptr, size_t size, size_t nmemb, void *userdata);
 			static size_t ReadCallback(char *ptr, size_t size, size_t nmemb, void *userdata);
+
+			void AddHttpsParameters(const char * url);
 		private:
 			CURL * curl = nullptr;
 		};

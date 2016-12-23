@@ -66,6 +66,7 @@ namespace peace
 				};
 				curl_easy_setopt(curl, CURLOPT_URL, url);
 				curl_easy_setopt(curl, CURLOPT_WRITEDATA, &f);
+				AddHttpsParameters(url);
 
 				auto res = curl_easy_perform(curl);
 				std::fclose(file);
@@ -126,6 +127,7 @@ namespace peace
 
 				curl_easy_setopt(curl, CURLOPT_URL, url);
 				curl_easy_setopt(curl, CURLOPT_WRITEDATA, &f);
+				AddHttpsParameters(url);
 
 				auto res = curl_easy_perform(curl);
 
@@ -170,7 +172,7 @@ namespace peace
 
 				curl_easy_setopt(curl, CURLOPT_URL, url);
 				curl_easy_setopt(curl, CURLOPT_WRITEDATA, &f);
-
+				AddHttpsParameters(url);
 				auto res = curl_easy_perform(curl);
 
 				if (CURLE_OK == res)
@@ -205,7 +207,7 @@ namespace peace
 				curl_easy_setopt(curl, CURLOPT_URL, url);
 				curl_easy_setopt(curl, CURLOPT_READFUNCTION, nullptr);
 				curl_easy_setopt(curl, CURLOPT_WRITEDATA, &responseFun);
-
+				AddHttpsParameters(url);
 				auto res = curl_easy_perform(curl);
 
 				if (CURLE_OK == res)
@@ -262,6 +264,7 @@ namespace peace
 				};
 				curl_easy_setopt(curl, CURLOPT_URL, url);
 				curl_easy_setopt(curl, CURLOPT_WRITEDATA, &f);
+				AddHttpsParameters(url);
 
 				curl_easy_setopt(curl, CURLOPT_POST, 1L);
 				curl_easy_setopt(curl, CURLOPT_READFUNCTION, nullptr);
@@ -363,6 +366,13 @@ namespace peace
 				result = (*f)(ptr, size, nmemb);
 			}
 			return result;
+		}
+		void Libcurl::AddHttpsParameters(const char * url)
+		{
+			if (std::strstr(url, "https") == url)
+			{
+				curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+			}
 		}
 	}
 }
