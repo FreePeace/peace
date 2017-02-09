@@ -3,8 +3,10 @@
 #include <regex>
 #include <fstream>
 #include <experimental\filesystem>
+#include <Windows.h>
 #include "net\Libcurl.h"
 #include "win\Desktop.h"
+#include "win\ErrorInfo.h"
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -66,7 +68,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 			if (std::experimental::filesystem::exists(fileName))
 			{
-				peace::win::Desktop::SetDesktopWallpager(fileName.c_str());
+				if(!peace::win::Desktop::SetDesktopWallpager(fileName.c_str()))
+				{
+					std::wstring info;
+					auto e = peace::win::ErrorInfo::LastErrorInfo(info);
+					if (e != 0) {
+						peace::win::ErrorInfo::AddTextToFile(L"err.txt", info);
+					}
+				}
 			}
 		}
 	}

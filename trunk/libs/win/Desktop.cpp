@@ -28,9 +28,9 @@ namespace peace
 				//SHGetSpecialFolderLocation(NULL, CSIDL_DESKTOP, &pidl);
 				//SHChangeNotify(SHCNE_ASSOCCHANGED, SHCNF_IDLIST, pidl, 0);
 				//result = true;
+				result = true;
 			}
 			return result;
-
 		}
 
 		bool Desktop::SetDesktopWallpager(const char * img)

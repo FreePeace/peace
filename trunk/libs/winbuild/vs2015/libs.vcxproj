@@ -22,6 +22,7 @@
     <ClCompile Include="..\..\map\GpsTransform.cpp" />
     <ClCompile Include="..\..\net\Libcurl.cpp" />
     <ClCompile Include="..\..\win\Desktop.cpp" />
+    <ClCompile Include="..\..\win\ErrorInfo.cpp" />
     <ClCompile Include="..\..\win\Service.cpp" />
     <ClCompile Include="..\..\win\ServiceHelper.cpp" />
     <ClCompile Include="..\..\win\CallThunk.cpp" />
@@ -31,6 +32,7 @@
     <ClInclude Include="..\..\net\Libcurl.h" />
     <ClInclude Include="..\..\utils\TypeConvert.h" />
     <ClInclude Include="..\..\win\Desktop.h" />
+    <ClInclude Include="..\..\win\ErrorInfo.h" />
     <ClInclude Include="..\..\win\Service.h" />
     <ClInclude Include="..\..\win\ServiceHelper.h" />
     <ClInclude Include="..\..\win\CallThunk.h" />
@@ -120,7 +122,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
