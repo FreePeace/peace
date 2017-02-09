@@ -40,6 +40,8 @@ namespace peace
 		private:
 			static size_t WriteCallback(char *ptr, size_t size, size_t nmemb, void *userdata);
 			static size_t ReadCallback(char *ptr, size_t size, size_t nmemb, void *userdata);
+
+			void AddHttpsParameters(const char * url);
 		private:
 			CURL * curl = nullptr;
 		};
