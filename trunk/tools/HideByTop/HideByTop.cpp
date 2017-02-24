@@ -198,7 +198,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		return DefWindowProc(hWnd, message, wParam, lParam);
 	}
 	break;
-	//case WM_SIZE:   //ÒªÈÃ´°ÌåÄÜ¹»Ëæ×ÅËõ·Å¸Ä±ä£¬ÒªÏìÓ¦WM-SIZEÏûÏ¢  
+	//case WM_SIZE:   //è¦è®©çª—ä½“èƒ½å¤Ÿéšç€ç¼©æ”¾æ”¹å˜ï¼Œè¦å“åº”WM-SIZEæ¶ˆæ¯  
 	//{
 	//	RECT rcClient = { 0 };
 	//	::GetClientRect(hWnd, &rcClient);
@@ -252,14 +252,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         PostQuitMessage(0);
         break;
 	case WM_LBUTTONDOWN:
-		//µÚÒ»ÖÖ·½·¨
+		//ç¬¬ä¸€ç§æ–¹æ³•
 		//#define  SC_DRAGMOVE  0xF012
 		SendMessage(hWnd, WM_SYSCOMMAND, SC_MOVE | HTCAPTION, 0);
-		//µÚ¶þÖÖ·½·¨
+		//ç¬¬äºŒç§æ–¹æ³•
 		//SendMessage(hWnd, WM_NCLBUTTONDOWN, HTCAPTION, 0);
 		break;
 	case WM_KEYDOWN:
 	{
+		auto levStyle = HWND_TOPMOST;
 		console->info("WM_KEYDOWN");
 		RECT rc;
 		::GetWindowRect(hWnd, &rc);
@@ -334,6 +335,14 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				rc.bottom++;
 			}
 		}
+		else if (VK_ESCAPE == wmId)
+		{
+			levStyle = HWND_NOTOPMOST;
+		}
+		else if (VK_CAPITAL == wmId)
+		{
+			levStyle = HWND_TOPMOST;
+		}
 		RECT cu;
 		::GetWindowRect(hWnd, &cu);
 		UINT flag = 0;
@@ -351,7 +360,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				//flag |= SWP_NOMOVE;
 			}
 		}
-		::SetWindowPos(hWnd, HWND_TOPMOST, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, flag);
+		::SetWindowPos(hWnd, levStyle, rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, flag);
 		break;
 	}
 	case WM_CHAR:

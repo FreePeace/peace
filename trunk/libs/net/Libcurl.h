@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <functional>
-#include <curl\curl.h>
+#include "curl\curl.h"
 namespace peace
 {
 	namespace net {
