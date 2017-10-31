@@ -37,9 +37,14 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		if(std::regex_search(start, m, regItem))
 		{
 			imgUrl = m.str(1);
-			if (!imgUrl.empty() && imgUrl[0] == '/')
+			if (!imgUrl.empty())
 			{
-				imgUrl.insert(0, "http://cn.bing.com");
+				if (imgUrl[0] == '/' && imgUrl[1] == '/') {
+					imgUrl.insert(0, "http:");
+				}
+				else if (imgUrl[0] == '/') {
+					imgUrl.insert(0, "http://cn.bing.com");
+				}
 			}
 		}
 	}

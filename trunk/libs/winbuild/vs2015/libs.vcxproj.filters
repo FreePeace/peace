@@ -36,9 +36,6 @@
     <ClCompile Include="..\..\win\ErrorInfo.cpp">
       <Filter>win</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\win\WindowHelper.cpp">
-      <Filter>win</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\net\Libcurl.h">
@@ -66,9 +63,6 @@
       <Filter>nap</Filter>
     </ClInclude>
     <ClInclude Include="..\..\win\ErrorInfo.h">
-      <Filter>win</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\win\WindowHelper.h">
       <Filter>win</Filter>
     </ClInclude>
   </ItemGroup>

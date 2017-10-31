@@ -26,7 +26,6 @@
     <ClCompile Include="..\..\win\Service.cpp" />
     <ClCompile Include="..\..\win\ServiceHelper.cpp" />
     <ClCompile Include="..\..\win\CallThunk.cpp" />
-    <ClCompile Include="..\..\win\WindowHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\map\GpsTransform.h" />
@@ -37,7 +36,6 @@
     <ClInclude Include="..\..\win\Service.h" />
     <ClInclude Include="..\..\win\ServiceHelper.h" />
     <ClInclude Include="..\..\win\CallThunk.h" />
-    <ClInclude Include="..\..\win\WindowHelper.h" />
     <ClInclude Include="Console.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
