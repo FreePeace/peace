@@ -20,10 +20,13 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	{
 		peace::net::Libcurl lib;
 		std::vector<char> res;
-		lib.HttpGet("http://cn.bing.com/", res);
+		//
+		//http://cn.bing.com/
+		lib.HttpGet("https://cn.bing.com/?FORM=BEHPTB&ensearch=1", res);
 		res.push_back('\0');
 
-		std::regex regItem(";g_img=\\{url:\\s*\"((http:/|https:/)?/[^\"]+)\"[^\\}]+id:'bgDiv'");
+		//std::regex regItem(";g_img=\\{url:\\s*\"((http:/|https:/)?/[^\"]+)\"[^\\}]+id:'bgDiv'");
+		std::regex regItem("html><img src=\"((http:/|https:/)?/[^\"]+)\"");
 		std::cmatch m;
 		char * start = &res[0];
 #ifdef _DEBUG

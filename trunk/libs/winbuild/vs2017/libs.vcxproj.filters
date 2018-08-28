@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="net">
+      <UniqueIdentifier>{cf5bf352-81ae-416b-b9d5-be63152bbd7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="win">
+      <UniqueIdentifier>{4daad585-273a-4fcc-a0ea-2a7762fe2ce6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utils">
+      <UniqueIdentifier>{ba559568-6c6e-4e1c-a229-a293bf156e68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="nap">
+      <UniqueIdentifier>{8f5f0ec1-3548-46fb-9467-7fbdd66b7706}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\net\Libcurl.cpp">
+      <Filter>net</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\win\Desktop.cpp">
+      <Filter>win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\win\Service.cpp">
+      <Filter>win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\win\ServiceHelper.cpp">
+      <Filter>win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\win\CallThunk.cpp">
+      <Filter>win</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\map\GpsTransform.cpp">
+      <Filter>nap</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\win\ErrorInfo.cpp">
+      <Filter>win</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\net\Libcurl.h">
+      <Filter>net</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\win\Desktop.h">
+      <Filter>win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\win\Service.h">
+      <Filter>win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\win\ServiceHelper.h">
+      <Filter>win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\win\CallThunk.h">
+      <Filter>win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\utils\TypeConvert.h">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>win</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\map\GpsTransform.h">
+      <Filter>nap</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\win\ErrorInfo.h">
+      <Filter>win</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+</Project>
