@@ -26,7 +26,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		res.push_back('\0');
 
 		//std::regex regItem(";g_img=\\{url:\\s*\"((http:/|https:/)?/[^\"]+)\"[^\\}]+id:'bgDiv'");
-		std::regex regItem("html><img src=\"((http:/|https:/)?/[^\"]+)\"");
+		//std::regex regItem("html><img src=\"((http:/|https:/)?/[^\"]+)\"");
+		std::regex regItem("html><img id=\"bgImg\" src=\"((http:/|https:/)?/[^\"]+)\"");
 		std::cmatch m;
 		char * start = &res[0];
 #ifdef _DEBUG

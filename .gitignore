@@ -26,3 +26,5 @@
 /trunk/libs/winbuild/vs2017/Release
 /trunk/libs/winbuild/vs2017/x64
 /trunk/libs/winbuild/vs2017/Debug
+/trunk/libs/winbuild/vs2017/.vs
+/trunk/tools/winbuild/vs2017/.vs
