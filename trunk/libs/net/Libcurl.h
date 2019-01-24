@@ -42,6 +42,8 @@ namespace peace
 			static size_t ReadCallback(char *ptr, size_t size, size_t nmemb, void *userdata);
 
 			void AddHttpsParameters(const char * url);
+			static void AddSysProxy(CURL * cu);
+			static void AddProxy(CURL * cu, const char * proxy);
 		private:
 			CURL * curl = nullptr;
 		};

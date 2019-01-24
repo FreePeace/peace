@@ -21,8 +21,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		peace::net::Libcurl lib;
 		std::vector<char> res;
 		//
-		//http://cn.bing.com/
 		lib.HttpGet("https://cn.bing.com/?FORM=BEHPTB&ensearch=1", res);
+		//lib.HttpGet("https://www.bing.com/?mkt=zh-CN", res);
+		//lib.HttpGet("https://www.bing.com", res);
 		res.push_back('\0');
 
 		//std::regex regItem(";g_img=\\{url:\\s*\"((http:/|https:/)?/[^\"]+)\"[^\\}]+id:'bgDiv'");
@@ -37,7 +38,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			fs.open("bing.html", std::ios::out | std::ios::trunc);
 			fs << &res[0];
 			fs.close();
-		}
+		}//curl 'https://www.bing.com/az/hprichbg/rb/ApfelTag_EN-CN3900525194_1920x1080.jpg' --compressed
 #endif // _DEBUG
 		if(std::regex_search(start, m, regItem))
 		{

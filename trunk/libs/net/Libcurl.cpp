@@ -3,6 +3,10 @@
 #include <vector>
 #include <experimental\filesystem>
 #include <memory>
+#ifdef SYS_PROXY
+#include <winhttp.h>
+#endif // SYS_PROXY
+
 namespace peace
 {
 	namespace net
@@ -14,6 +18,7 @@ namespace peace
 			//curl_easy_setopt(curl, CURLOPT_WRITEDATA, this);
 			//curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 5);
 			curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+			curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, 20000L);
 #ifdef _DEBUG
 			curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 #endif // _DEBUG
@@ -184,6 +189,23 @@ namespace peace
 						result = true;
 					}
 				}
+#ifdef SYS_PROXY
+				//当不能正常连接时，如果有定义使用系统代理，就增加系统代码，再重试一次
+				else if (CURLE_COULDNT_CONNECT == res) {
+					AddSysProxy(curl);
+					res = curl_easy_perform(curl);
+
+					if (CURLE_OK == res)
+					{
+						long code = 0;
+						curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &code);
+						if (404 != code)
+						{
+							result = true;
+						}
+					}
+				}
+#endif // SYS_PROXY
 			}
 			return result;
 		}
@@ -371,8 +393,35 @@ namespace peace
 		{
 			if (std::strstr(url, "https") == url)
 			{
-				curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+				curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);
+				curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, false);
 			}
+		}
+		void Libcurl::AddSysProxy(CURL * cu)
+		{
+#ifdef SYS_PROXY
+			//如果有定义使用系统代理，就增加系统代码
+			WINHTTP_CURRENT_USER_IE_PROXY_CONFIG iep;
+			WinHttpGetIEProxyConfigForCurrentUser(&iep);
+			if (iep.lpszProxy != nullptr) {
+				std::string proxy = "http://";
+				{
+					std::vector<char> temp(2 * std::wcslen(iep.lpszProxy) + 1, '\0');
+					{
+						mbstate_t mbs;
+						std::mbrlen(NULL, 0, &mbs);
+						std::wcsrtombs(&temp[0], (const wchar_t **)&(iep.lpszProxy), temp.size() - 1, &mbs);
+					}
+					proxy += &temp[0];
+				}
+				AddProxy(cu, proxy.c_str());
+			}
+#endif // SYS_PROXY
+		}
+		void Libcurl::AddProxy(CURL * cu, const char * proxy)
+		{
+			curl_easy_setopt(cu, CURLOPT_PROXY, proxy);
+			curl_easy_setopt(cu, CURLOPT_HTTPPROXYTUNNEL, 1L);
 		}
 	}
 }
